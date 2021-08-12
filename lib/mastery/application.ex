@@ -2,15 +2,15 @@ defmodule Mastery.Application do
   @moduledoc false
 
   use Application
-  alias Mastery.Boundary.QuizManager
 
   @impl Application
   def start(_type, _args) do
     IO.puts "Starting Mastery"
 
     children = [
-      QuizManager,
+      Mastery.Boundary.QuizManager,
       {Registry, [name: Mastery.Registry.QuizSession, keys: :unique]},
+      Mastery.Boundary.Proctor,
       {DynamicSupervisor, [name: Mastery.Supervisor.QuizSession, strategy: :one_for_one]}
     ]
 

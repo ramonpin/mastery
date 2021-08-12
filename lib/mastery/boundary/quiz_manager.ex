@@ -23,6 +23,10 @@ defmodule Mastery.Boundary.QuizManager do
     GenServer.call(manager, :list_quizzes)
   end
 
+  def remove_quiz(manager \\ __MODULE__, quiz_title) do
+    GenServer.call(manager, {:remove_quiz, quiz_title})
+  end
+
   @impl GenServer
   def init(quizzes) when is_map(quizzes), do: {:ok, quizzes}
   def init(_quizzes), do: {:error, "quizzes must be a map"}
@@ -48,5 +52,11 @@ defmodule Mastery.Boundary.QuizManager do
   @impl GenServer
   def handle_call(:list_quizzes, _from, quizzes) do
     {:reply, quizzes, quizzes}
+  end
+
+  @impl GenServer
+  def handle_call({:remove_quiz, quiz_title}, _from, quizzes) do
+    new_quizzes = Map.delete(quizzes, quiz_title)
+    {:reply, :ok, new_quizzes}
   end
 end
