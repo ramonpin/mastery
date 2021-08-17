@@ -1,7 +1,11 @@
 defmodule Mastery do
+  @moduledoc false
+
   alias Mastery.Boundary.{QuizSession, QuizManager, Proctor}
   alias Mastery.Boundary.{TemplateValidator, QuizValidator}
   alias Mastery.Core.Quiz
+
+  @persistence_fn Application.compile_env(:mastery, :persistence_fn)
 
   def schedule_quiz(quiz, templates, start_at, end_at) do
     with :ok <- QuizValidator.errors(quiz),
@@ -32,7 +36,7 @@ defmodule Mastery do
     QuizSession.select_question(session)
   end
 
-  def answer_question(session, answer) do
-    QuizSession.answer_question(session, answer)
+  def answer_question(session, answer, persistence_fn \\ @persistence_fn) do
+    QuizSession.answer_question(session, answer, persistence_fn)
   end
 end

@@ -24,7 +24,8 @@ defmodule Mastery.MixProject do
   defp deps do
     [
       {:excoveralls, "~> 0.14.2"},
-      {:credo, "~> 1.5"}
+      {:credo, "~> 1.5"},
+      {:mastery_persistence, path: "mastery_persistence"}
     ]
   end
 end
