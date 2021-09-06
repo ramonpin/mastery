@@ -23,8 +23,9 @@ defmodule Mastery.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:excoveralls, "~> 0.14.2"},
-      {:credo, "~> 1.5"},
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.14.2", only: :dev, runtime: false},
+      {:credo, "~> 1.5", only: :dev, runtime: false},
       {:mastery_persistence, path: "mastery_persistence"}
     ]
   end
